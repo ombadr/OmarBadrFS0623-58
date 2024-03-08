@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Ricerca Prenotazione Cliente";
+}
+
+<h2>Ricerca Prenotazione Cliente</h2>
+<div class="form-group">
+    <label for="codiceFiscale">Codice Fiscale:</label>
+    <input type="text" id="codiceFiscale" class="form-control" placeholder="Inserisci il codice fiscale" />
+</div>
+<button id="cercaPrenotazioni" class="btn btn-success my-3">Cerca Prenotazioni</button>
+
+<div id="risultatiPrenotazioni" class="my-5"></div>
+
+@section Scripts {
+
+    <script>
+     $(document).ready(function () {
+    $("#cercaPrenotazioni").click(function () {
+        var codiceFiscale = $("#codiceFiscale").val();
+        if(codiceFiscale === '') {
+            alert('Per favore, inserisci un codice fiscale.');
+            return;
+        }
+        $.ajax({
+            url: '@Url.Action("RicercaPrenotazioneCliente", "Prenotazioni")',
+            type: 'GET',
+            data: { codiceFiscale: codiceFiscale },
+            success: function (data) {
+                $("#risultatiPrenotazioni").empty();
+                if(data && data.length > 0) {
+                    var risultatiHtml = '<ul>';
+                    $.each(data, function(i, prenotazione) {
+                        var dataInizio = formatDate(prenotazione.DataInizio);
+                        var dataFine = formatDate(prenotazione.DataFine);
+                        risultatiHtml += '<li>Id: ' + prenotazione.Id + ', Numero Camera: ' + prenotazione.NumeroCamera + ', Data Inizio: ' + dataInizio + ', Data Fine: ' + dataFine + ', Tariffa Applicata: €' + prenotazione.TariffaApplicata.toFixed(2) + '</li>';
+                    });
+                    risultatiHtml += '</ul>';
+                    $("#risultatiPrenotazioni").html(risultatiHtml);
+                } else {
+                    $("#risultatiPrenotazioni").html('<p>Nessuna prenotazione trovata per il codice fiscale fornito.</p>');
+                }
+            },
+            error: function () {
+                $("#risultatiPrenotazioni").html('<p>Errore nella ricerca delle prenotazioni. Assicurati di aver inserito un codice fiscale valido.</p>');
+            }
+        });
+    });
+
+    function formatDate(dateString) {
+        var date = new Date(dateString);
+        var day = ('0' + date.getDate()).slice(-2);
+        var month = ('0' + (date.getMonth() + 1)).slice(-2);
+        var year = date.getFullYear();
+        return day + '-' + month + '-' + year;
+    }
+});
+    </script>
+}

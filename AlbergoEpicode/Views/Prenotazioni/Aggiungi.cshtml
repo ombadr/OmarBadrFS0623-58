@@ -1,0 +1,76 @@
+﻿@model AlbergoEpicode.Models.Prenotazione
+@{
+    ViewBag.Title = "Nuova Prenotazione";
+}
+
+<h2>Nuova Prenotazione</h2>
+
+@using (Html.BeginForm("Aggiungi", "Prenotazioni", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-group">
+    @Html.Label("CodiceFiscaleCliente", "Codice Fiscale del Cliente", new { @class = "control-label col-md-2" })
+    <div class="col-md-10">
+        @Html.TextBoxFor(m => m.CodiceFiscaleCliente, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CodiceFiscaleCliente, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NumeroCamera, "Camera")
+        @Html.DropDownListFor(model => model.NumeroCamera, (IEnumerable<SelectListItem>)ViewBag.CamereDisponibili, "Seleziona una Camera", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.NumeroCamera, "", new { @class = "text-danger" })
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DataInizio, "Data Inizio", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.DataInizio, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(m => m.DataInizio, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DataFine,"Data Fine", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.DataFine, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(m => m.DataFine, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CaparraConfermatoria,"Caparra Confermatoria", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.CaparraConfermatoria, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CaparraConfermatoria, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.TariffaApplicata,"Tariffa Applicata", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.TariffaApplicata, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.TariffaApplicata, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DettagliSoggiorno,"Dettagli Soggiorno", new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.DettagliSoggiorno, new SelectList(new[] { "Mezza pensione", "Pensione completa", "Pernottamento con prima colazione" }), "Seleziona un'opzione", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.DettagliSoggiorno, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group my-3">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Aggiungi Prenotazione" class="btn btn-success" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

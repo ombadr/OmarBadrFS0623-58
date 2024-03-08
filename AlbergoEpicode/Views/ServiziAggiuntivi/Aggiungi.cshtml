@@ -1,0 +1,33 @@
+﻿@model AlbergoEpicode.Models.AggiungiServizioViewModel
+
+@{
+    ViewBag.Title = "Aggiungi Servizio Aggiuntivo";
+}
+
+<h2 class="mb-3">@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.PrenotazioneId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ServizioId, "Servizio")
+        @Html.DropDownListFor(model => model.ServizioId, Model.ListaServizi, "Seleziona un servizio", new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ServizioId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Quantita)
+        @Html.TextBoxFor(model => model.Quantita, new { @class = "form-control", type = "number", min = "1" })
+        @Html.ValidationMessageFor(model => model.Quantita, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-success my-3">Aggiungi Servizio</button>
+}
+
+<div class="d-flex justify-content-center my-3">
+    @Html.ActionLink("Torna indietro", "Index", "Prenotazioni", new { }, new { @class = "btn btn-secondary" })
+</div>
+

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<AlbergoEpicode.Models.Cliente>
+@{
+    ViewBag.Title = "Elenco Clienti";
+}
+
+<h2>Elenco Clienti</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Codice Fiscale</th>
+            <th>Cognome</th>
+            <th>Nome</th>
+            <th>Citta</th>
+            <th>Provincia</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Cellulare</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model)
+            {
+            <tr>
+                <td>@item.CodiceFiscale</td>
+                <td>@item.Cognome</td>
+                <td>@item.Nome</td>
+                <td>@item.Citta</td>
+                <td>@item.Provincia</td>
+                <td>@item.Email</td>
+                <td>@item.Telefono</td>
+                <td>@item.Cellulare</td>
+            </tr>
+            }
+    </tbody>
+</table>

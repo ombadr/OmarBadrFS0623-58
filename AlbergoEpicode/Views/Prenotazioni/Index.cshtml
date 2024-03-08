@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AlbergoEpicode.Models.Prenotazione>
+@{
+    ViewBag.Title = "Lista Prenotazioni";
+}
+
+<h2>Lista Prenotazioni</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Codice Fiscale Cliente</th>
+            <th>Numero Camera</th>
+            <th>Data Prenotazione</th>
+            <th>Numero Prenotazione</th>
+            <th>Anno</th>
+            <th>Data Inizio</th>
+            <th>Data Fine</th>
+            <th>Caparra Confermatoria</th>
+            <th>Tariffa Applicata</th>
+            <th>Dettagli Soggiorno</th>
+            <th>Aggiungi Servizio Aggiuntivo</th>
+            <th>Checkout</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.CodiceFiscaleCliente</td>
+                <td>@item.NumeroCamera</td>
+                <td>@item.DataPrenotazione.ToString("dd-MM-yyyy")</td>
+                <td>@item.NumeroProgressivo</td>
+                <td>@item.Anno</td>
+                <td>@item.DataInizio.ToString("dd-MM-yyyy")</td>
+                <td>@item.DataFine.ToString("dd-MM-yyyy")</td>
+                <td>@item.CaparraConfermatoria</td>
+                <td>@item.TariffaApplicata</td>
+                <td>@item.DettagliSoggiorno</td>
+                <td>
+                    @Html.ActionLink("Aggiungi", "Aggiungi", "ServiziAggiuntivi", new { id = item.Id }, new { @class = "btn btn-success" })
+                </td>
+                <td>
+                    @Html.ActionLink("Checkout", "Checkout", "Prenotazioni", new { id = item.Id }, new { @class = "btn btn-dark" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

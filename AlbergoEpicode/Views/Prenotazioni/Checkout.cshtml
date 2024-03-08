@@ -1,0 +1,22 @@
+﻿@model AlbergoEpicode.Models.CheckoutViewModel
+@{
+    ViewBag.Title = "Dettagli Checkout";
+}
+
+
+
+<h2>Dettagli Checkout</h2>
+<div>
+    <p>Numero Stanza: @Model.NumeroStanza</p>
+    <p>Periodo: @Model.DataInizio.ToShortDateString() - @Model.DataFine.ToShortDateString()</p>
+    <p>Tariffa Applicata: @Model.TariffaApplicata€</p>
+    <p>Caparra Confermatoria: @Model.CaparraConfermatoria€</p>
+    <p>Servizi Aggiuntivi:</p>
+    <ul>
+        @foreach (var servizio in Model.ServiziAggiuntivi)
+        {
+            <li>@servizio.Descrizione - Quantità: @servizio.Quantita - Prezzo Totale: @servizio.PrezzoTotale€</li>
+        }
+    </ul>
+    <p>Importo Da Saldare: @Model.ImportoDaSaldare€</p>
+</div>
